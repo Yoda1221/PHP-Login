@@ -19,7 +19,3 @@ $app->router->get('/registration', [AuthController::class, 'registration']);
 $app->router->post('/registration', [AuthController::class, 'registration']);
 
 $app->run();
-
-
-// function() { return "SUBMIT"; }
-// [SiteController::class, 'loginPost']

@@ -23,25 +23,22 @@ class AuthController extends Controller {
     
     public static function registration(Request $request) {
 
-        $errors = [];
+        $errors     = [];
+        $regModel   = new RegModel();
         
-        $regModel = new RegModel();
         if ($request->isPost()) {
             $regModel->loadData($request->getBody());
-
-            dump($regModel);
 
             if ($regModel->validate() && $regModel->register()) {
                 return "SUCCESS";
             }
-             
+            
             return Application::$app->router->renderView('registration', [
                 'model' => $regModel
             ]);
         }
         
         $body = $request->getBody();
-        
         
         return Application::$app->router->renderView('registration', [
             'model' => $regModel
