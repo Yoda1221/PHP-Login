@@ -4,15 +4,19 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 use App\core\Application;
 use App\controllers\SiteController;
+use App\controllers\AuthController;
 
 $app = new Application(dirname(__DIR__));
 
-//**    GET METHODS
-$app->router->get('/', 'home');
-$app->router->get('/login', 'login');
+//** SITES
+$app->router->get('/', [SiteController::class, 'home']);
 
-//**    POST METHODS
-$app->router->post('/login', function() { return "SUBMIT FORM"; });
+
+//** AUTH
+$app->router->get('/login', [AuthController::class, 'login']);
+$app->router->post('/login', [AuthController::class, 'login']);
+$app->router->get('/registration', [AuthController::class, 'registration']);
+$app->router->post('/registration', [AuthController::class, 'registration']);
 
 $app->run();
 
