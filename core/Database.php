@@ -101,6 +101,10 @@ class Database {
         $stmt->execute();
     }
 
+    public function prepare($sql) {
+        return $this->conn->prepare($sql);
+    }
+
     /**
      * Undocumented function
      *
