@@ -31,4 +31,17 @@ class User extends DbModel {
         return ['email', 'password'];
     }
 
+    /**
+     ** USER FRIENDLY LABELS
+     *
+     * @return array
+     */
+    public function labels(): array {
+        return [
+            'email' => "e-Mail",
+            "password" => "Password",
+            "passwordConf" => "Password Confirm"
+        ]; 
+    }
+
 }

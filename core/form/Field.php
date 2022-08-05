@@ -22,7 +22,6 @@ class Field {
     }
     
     public function __toString() {
-        
         return sprintf('
             <div class="mb-3">
                 <label class="form-label">%s</label>
@@ -30,14 +29,13 @@ class Field {
                 <div class="invalid-feedback">%s</div>
             </div>
         ',
-            $this->attr,
+            $this->model->getLabels($this->attr),
             $this->type,
             $this->attr,
             $this->model->{$this->attr},
             $this->model->hasError($this->attr) ? ' is-invalid' : '' ,
             $this->model->firstError($this->attr)
         );
-
     }
 
     public function passField() {

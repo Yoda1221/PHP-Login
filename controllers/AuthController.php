@@ -30,7 +30,9 @@ class AuthController extends Controller {
             $user->loadData($request->getBody());
 
             if ($user->validate() && $user->save()) {
-                return "SUCCESS";
+                Application::$app->session->setFlashMesg('success', 'Thanks for registration!');
+                Application::$app->response->redirect('/');
+                exit;
             }
             
             return Application::$app->router->renderView('registration', [

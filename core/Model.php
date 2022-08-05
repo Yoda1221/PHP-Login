@@ -15,18 +15,23 @@ abstract class Model {
 
     abstract public function rules(): array;
 
-    public function loadData($data) {
+    public function labels(): array {
+        return [];
+    }
+    
+    public function getLabels($attr) {
+        return $this->labels()[$attr] ?? $attr;
+    }
 
+    public function loadData($data) {
         foreach ($data as $key => $value) {
             if(property_exists($this, $key)) {
                 $this->{$key} = $value;
             }    
         }
-
     }
 
     public function validate() {
-
         foreach ($this->rules() as $att => $rules) {
             $value = $this->{$att};
             foreach ($rules as $rule) {
@@ -44,6 +49,7 @@ abstract class Model {
                     $this->addError($att, self::RULE_MIN, $rule);
                 }
                 if ($ruleName === self::RULE_MATCH && $value !== $this->{$rule["match"]}) {
+                    $rule["match"] = $this->getLabels($rule["match"]);
                     $this->addError($att, self::RULE_MATCH, $rule);
                 }
                 if ($ruleName === self::RULE_UNIQUE) {
@@ -55,26 +61,20 @@ abstract class Model {
                     $stmt->execute();
                     $record = $stmt->fetchObject();
                     if ($record) {
-                        $this->addError($att, self::RULE_UNIQUE, ['field' => $att]);
+                        $this->addError($att, self::RULE_UNIQUE, ['field' => $this->getLabels($att)]);
                     }
-
                 }
             }
         }
-
         return empty($this->errors);
-
     }
 
     public function addError(string $att, string $rule, $params = []) {
-
         $messages = $this->errorMsg()[$rule] ?? '';
         foreach ($params as $key => $value) {
             $messages = str_replace("{{$key}}", $value, $messages);
         }
         $this->errors[$att][] = $messages;
-
-
     }
 
     public function errorMsg() {
