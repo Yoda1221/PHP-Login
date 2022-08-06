@@ -21,10 +21,10 @@ class Controller {
 
     public function registerMiddleware(AuthMiddleware $middleware) {
         $this->middlewares[] = $middleware;
-        
     }
 
     public function getMiddlewares(): array {
         return $this->middlewares;
     }
+    
 }

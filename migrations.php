@@ -8,7 +8,6 @@ use App\core\Application;
 $dotenv = Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 
-
 $config = [
     'db' => [
         'dsn'   => $_ENV['DB_DSN'],
@@ -18,6 +17,5 @@ $config = [
 ];
 
 $app = new Application(__DIR__, $config);
-
 
 $app->db->applyMigration();

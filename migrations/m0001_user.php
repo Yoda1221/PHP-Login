@@ -13,14 +13,12 @@ class m0001_user {
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )";
         $db->conn->exec($sql);
-
     }
     
     public function down() {
         $db = Application::$app->db;
         $sql = "DROP TABLE users";
         $db->conn->exec($sql);
-
     }
 
 }

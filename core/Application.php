@@ -45,6 +45,11 @@ class Application {
         }
     }
 
+    /**
+     ** RUN THE APPLICATION IF NOT ANY EXCEPTION
+     *
+     * @return void
+     */
     public function run() {
         try {
             echo $this->router->resolve();
@@ -74,16 +79,21 @@ class Application {
         $this->controller = $controller;
     }
 
+    /**
+     ** NOT AUTHENTICATED USER
+     *
+     * @return boolean
+     */
+    public static function isGuest() {
+        return !self::$app->user;
+    }
+
     public function login(DbModel $user) {
         $this->user = $user;
         $primaryKey = $user->primaryKey();
         $primaryVal = $user->{$primaryKey};
         $this->session->set('user', $primaryVal);
         return true;
-    }
-
-    public static function isGuest() {
-        return !self::$app->user;
     }
 
     public function logout() {

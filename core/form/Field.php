@@ -16,9 +16,9 @@ class Field {
     public string $type;
     
     public function __construct(Model $model, string $attr) {
-        $this->type     = self::TYPE_TEXT;
         $this->attr     = $attr;
         $this->model    = $model;
+        $this->type     = self::TYPE_TEXT;
     }
     
     public function __toString() {

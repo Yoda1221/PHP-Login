@@ -19,7 +19,6 @@ class SiteController extends Controller {
         ];
         // $this->render
         return Application::$app->router->renderView('home', $params);
-
     }
 
     public function profile() {

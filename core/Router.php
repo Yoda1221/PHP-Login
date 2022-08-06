@@ -2,7 +2,6 @@
 
 namespace App\core;
 
-use App\middlewares\AuthMiddleware;
 use App\core\exceptions\NotFoundExc;
 
 /**

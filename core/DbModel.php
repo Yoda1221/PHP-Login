@@ -13,6 +13,11 @@ class DbModel extends Model {
         return [];
     }
 
+    /**
+     ** SAVE NEW USER TO DATABASE
+     *
+     * @return void
+     */
     public function save() {
         $tableName  = $this->tableName();
         $attributes = $this->attributes();
@@ -24,10 +29,17 @@ class DbModel extends Model {
         foreach ($attributes as $attribute) {
             $stmt->bindValue(":$attribute", $this->{$attribute});
         }
+
         $stmt->execute();
         return true;
     }
 
+    /**
+     ** SEARCH FOR A USER IN THE DATABASE E.G. BY EMAIL ADDRESS
+     *
+     * @param array $where
+     * @return void
+     */
     public function findUser(array $where) {
         $tableName  = static::tableName();
         $attr       = array_keys($where);
@@ -39,9 +51,5 @@ class DbModel extends Model {
         $stmt->execute();
         return $stmt->fetchObject(static::class);
     }
-
-    /* public static function prepare($sql) {
-        return Application::$app->db->conn->prepare($sql);
-    } */
 
 }

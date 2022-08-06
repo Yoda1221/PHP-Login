@@ -2,12 +2,12 @@
 
 namespace App\controllers;
 
-use App\core\Application;
-use App\core\Controller;
+use App\models\User;
 use App\core\Request;
 use App\core\Response;
+use App\core\Controller;
 use App\models\LoginForm;
-use App\models\User;
+use App\core\Application;
 
 class AuthController extends Controller {
 
@@ -28,7 +28,6 @@ class AuthController extends Controller {
     }
     
     public static function registration(Request $request) {
-        $errors = [];
         $user   = new User();
         
         if ($request->isPost()) {

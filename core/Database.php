@@ -6,23 +6,18 @@ use PDO;
 use PDOException;
 
 /**
- * Undocumented class
+ ** DATABASE CONNECTION
  */
 class Database {
 
     public $conn;
 
-    /**
-     * Undocumented function
-     *
-     * @param array $config
-     */
     public function __construct(array $config) {
+        $this->conn = null;
+
         $dsn    = $config['dsn'] ?? '';
         $user   = $config['user'] ?? '';
         $pass   = $config['pass'] ?? '';
-
-        $this->conn = null;
 
         try {
             $this->conn = new PDO($dsn, $user, $pass);
@@ -37,7 +32,7 @@ class Database {
     }
 
     /**
-     * Undocumented function
+     ** APPLY MIGRATION
      *
      * @return void
      */
@@ -70,7 +65,7 @@ class Database {
     }
 
     /**
-     * Undocumented function
+     ** CREATE MIGRATIONS TABLE ON DATABASE
      *
      * @return void
      */
@@ -85,7 +80,7 @@ class Database {
     }
 
     /**
-     * Undocumented function
+     ** GET APPLIED MIGRATIONS
      *
      * @return void
      */
@@ -105,12 +100,6 @@ class Database {
         return $this->conn->prepare($sql);
     }
 
-    /**
-     * Undocumented function
-     *
-     * @param string $message
-     * @return void
-     */
     protected function log(string $message){
         echo '[' . date('Y-m-d H:i:s') . '] - ' . $message.PHP_EOL;
     }
