@@ -1,3 +1,6 @@
+<?php
+  //**  @ var $model App\models\User
+?>
 
 <h1>Registration</h1>
 <?php

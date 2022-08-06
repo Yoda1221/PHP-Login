@@ -4,14 +4,13 @@ namespace App\controllers;
 
 use App\core\Application;
 use App\core\Controller;
-use App\core\Request;
 
 class SiteController extends Controller {
 
     public static function home() {
-
+        $name = Application::$app->user->email ?? "";
         $params = [
-            'name' => "Yoda"
+            'name' => $name
         ];
         // $this->render
         return Application::$app->router->renderView('home', $params);

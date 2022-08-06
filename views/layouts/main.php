@@ -28,14 +28,22 @@ use App\core\Application;
                         <a class="nav-link" href="/">Protected</a>
                     </li>
                 </ul>
-                <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/login">Log In</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="/registration">Registration</a>
-                    </li>
-                </ul>
+                <?php if(Application::isGuest()) :?>
+                    <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/login">Log In</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="/registration">Registration</a>
+                        </li>
+                    </ul>
+                <?php else :?>
+                    <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/logout">LogOut</a>
+                        </li>
+                    </ul>
+                <?php endif;?>
             </div>
         </div>
     </nav>

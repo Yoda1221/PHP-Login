@@ -5,20 +5,26 @@ namespace App\controllers;
 use App\core\Application;
 use App\core\Controller;
 use App\core\Request;
+use App\core\Response;
+use App\models\LoginForm;
 use App\models\User;
 
 class AuthController extends Controller {
 
-    public static function login(Request $request) {
-        
-        $body = $request->getBody();
+    public function login(Request $request, Response $response) {
+        $loginForm = new LoginForm();
         
         if ($request->isPost()) {
-            return "Submitted login data!";
+           $loginForm->loadData($request->getBody());
+           if ($loginForm->validate() && $loginForm->login()) {
+               $response->redirect('/');
+               return;
+           }
         }
         
-        return Application::$app->router->renderView('login');
-        
+        return Application::$app->router->renderView('login', [
+            "model" => $loginForm
+        ]);
     }
     
     public static function registration(Request $request) {
@@ -45,9 +51,11 @@ class AuthController extends Controller {
         return Application::$app->router->renderView('registration', [
             'model' => $user
         ]);
-
-
     }
 
+    public function logout(Request $request, Response $response) {
+        Application::$app->logout();
+        $response->redirect('/');
+    }
 
 }

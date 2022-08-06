@@ -4,10 +4,14 @@ namespace App\core;
 
 use App\core\Model;
 
-abstract class DbModel extends Model {
+class DbModel extends Model {
     
-    abstract public function tableName(): string;
-    abstract public function attributes(): array;
+    public function tableName(): string {
+        return '';
+    }
+    public function attributes(): array {
+        return [];
+    }
 
     public function save() {
         $tableName  = $this->tableName();
@@ -24,9 +28,20 @@ abstract class DbModel extends Model {
         return true;
     }
 
-    public static function prepare($sql) {
-        return Application::$app->db->conn->prepare($sql);
+    public function findUser(array $where) {
+        $tableName  = static::tableName();
+        $attr       = array_keys($where);
+        $whereStr   = implode("AND", array_map(fn($att) => "$att = :$att", $attr));
+        $stmt = self::prepare("SELECT * FROM $tableName WHERE $whereStr");
+        foreach ($where as $key => $value) {
+            $stmt->bindValue(":$key", $value);
+        }
+        $stmt->execute();
+        return $stmt->fetchObject(static::class);
     }
 
+    /* public static function prepare($sql) {
+        return Application::$app->db->conn->prepare($sql);
+    } */
 
 }
