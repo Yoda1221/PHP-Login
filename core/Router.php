@@ -45,11 +45,9 @@ class Router {
             Application::$app->controller = $controller;
             $controller->page = $callback[1];
             $callback[0] = $controller;
-            /* dump($controller->registerMiddlerare());
-            exit;
-            foreach ($controller->registerMiddlerare() as $middleware) {
+            foreach ($controller->registerMiddleware() as $middleware) {
                 $middleware->execute();
-            } */
+            }
 
         }
 
