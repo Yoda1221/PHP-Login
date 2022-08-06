@@ -32,4 +32,8 @@ $app->router->get('/logout', [AuthController::class, 'logout']);
 $app->router->get('/registration', [AuthController::class, 'registration']);
 $app->router->post('/registration', [AuthController::class, 'registration']);
 
+//** PROTECTED
+$app->router->get('/profile', [SiteController::class, 'profile']);
+$app->router->get('/protected', [SiteController::class, 'protected']);
+
 $app->run();

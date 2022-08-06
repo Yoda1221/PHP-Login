@@ -2,6 +2,9 @@
 
 namespace App\core;
 
+use App\middlewares\AuthMiddleware;
+use App\core\exceptions\NotFoundExc;
+
 /**
  ** Class Router
  *
@@ -30,14 +33,24 @@ class Router {
         $method = $this->request->methods();
         $callback = $this->routes[$method][$path] ?? false;
         if ($callback === false) {
-            $this->response->setStatusCode(404);
-            return $this->renderView("_404");
+            throw new NotFoundExc();            
         }
         if (is_string($callback)) {
             return $this->renderView($callback);
         }
         if (is_array($callback)) {
-            $callback[0] = new $callback[0]();
+            //$callback[0] = new $callback[0]();
+            //Application::$app->controller = new $callback[0]();
+            $controller = new $callback[0]();
+            Application::$app->controller = $controller;
+            $controller->page = $callback[1];
+            $callback[0] = $controller;
+            /* dump($controller->registerMiddlerare());
+            exit;
+            foreach ($controller->registerMiddlerare() as $middleware) {
+                $middleware->execute();
+            } */
+
         }
 
         return call_user_func($callback, $this->request, $this->response);
@@ -61,7 +74,6 @@ class Router {
     }
 
     protected function renderOnlyView($view, $params) {
-
         foreach ($params as $key => $value) {
             $$key = $value;
         }
@@ -69,6 +81,5 @@ class Router {
         include_once Application::$ROOT_DIR . "/views/$view.php";
         return ob_get_clean();
     }
-
 
 }

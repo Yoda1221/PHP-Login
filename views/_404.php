@@ -1,5 +1,6 @@
 <?php
 
+    /** @var $exception Exception */
 ?>
 
-<h1>PAGE NOT FOUND!</h1>
+<h2><?php echo $exception->getCode() . " - " . $exception->getMessage(); ?></h2>

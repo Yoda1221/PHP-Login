@@ -2,6 +2,7 @@
 
 namespace App\core;
 
+use Exception;
 use App\core\Model;
 use App\core\DbModel;
 use App\core\Controller;
@@ -38,14 +39,21 @@ class Application {
         $primaryVal = $this->session->get('user');
         if ($primaryVal) {
             $primaryKey = $this->model->primaryKey();
-            $this->user = $this->model->findData([$primaryKey => $primaryVal], 'users'); //$this->userClass->findUser([$primaryKey, $primaryVal]);
+            $this->user = $this->model->findData([$primaryKey => $primaryVal], 'users');
         } else {
             $this->user = null;
         }
     }
 
     public function run() {
-        echo $this->router->resolve();
+        try {
+            echo $this->router->resolve();
+        } catch (\Exception $e) {
+            $this->response->setStatusCode($e->getCode());
+            echo $this->router->renderView('_404', [
+                'exception' => $e
+            ]);
+        }
     }
 
     /**

@@ -28,7 +28,6 @@ class AuthController extends Controller {
     }
     
     public static function registration(Request $request) {
-
         $errors = [];
         $user   = new User();
         

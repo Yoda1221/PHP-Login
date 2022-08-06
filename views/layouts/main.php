@@ -24,9 +24,11 @@ use App\core\Application;
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="/">Home</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/">Protected</a>
-                    </li>
+                    <?php if(!Application::isGuest()) :?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/protected">Protected</a>
+                        </li>
+                    <?php endif;?>
                 </ul>
                 <?php if(Application::isGuest()) :?>
                     <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
@@ -39,6 +41,9 @@ use App\core\Application;
                     </ul>
                 <?php else :?>
                     <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/profile">Profile</a>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/logout">LogOut</a>
                         </li>
