@@ -7,6 +7,7 @@
 
 ## User Guide
 - Clone the program from Git repository [Yoda1221/PHP-Logn](https://github.com/Yoda1221/PHP-Login.git)
+- Run the following command: composer dump-autoload -o
 - Create ".env" file in root directory and set basic data based on ".env.example"
 - Run from root directory the migrations.php ( php migrations.php )
 - Run the program from the public folder with the following command: php -S localhost:8080 or on any other port
