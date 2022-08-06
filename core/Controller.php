@@ -10,13 +10,10 @@ class Controller {
     /**
      * @var App\middlewares\AuthMiddleware[]
      */
-    public array $middlewares = [];
+    protected array $middlewares = [];
     public string $page = '';
 
-    public function __construct() {
-        echo 123;
-        exit;
-    }
+    public function __construct() {}
 
     public function render($view, $params) {
         return Application::$app->router->renderView($view, $params);
@@ -25,5 +22,9 @@ class Controller {
     public function registerMiddleware(AuthMiddleware $middleware) {
         $this->middlewares[] = $middleware;
         
+    }
+
+    public function getMiddlewares(): array {
+        return $this->middlewares;
     }
 }

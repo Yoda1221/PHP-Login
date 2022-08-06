@@ -9,7 +9,7 @@ use App\middlewares\AuthMiddleware;
 class SiteController extends Controller {
 
     public function __construct() {
-        $this->registerMiddlerare(new AuthMiddleware(['profile', 'protected']));
+        $this->registerMiddleware(new AuthMiddleware(['profile', 'protected']));
     }
 
     public static function home() {
@@ -29,12 +29,5 @@ class SiteController extends Controller {
     public function protected() {
         return Application::$app->router->renderView('protected');
     }
-
-   /*  public array $middlewares = [];
-    public string $page = '';
-    public function registerMiddlerare(AuthMiddleware $middleware) {
-        $this->middlewares[] = $middleware;
-        
-    } */
 
 }

@@ -14,8 +14,6 @@ class AuthMiddleware {
 
     public function execute() {
         if (Application::isGuest()) {
-            dump(Application::$app->controller->page);
-            exit;
             if (empty($this->pages) || in_array(Application::$app->controller->page, $this->pages)) {
                 throw new PermDeniedExc();
             }
